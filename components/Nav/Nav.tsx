@@ -12,7 +12,6 @@ import {
 } from 'next-auth/react';
 import logo from '@/public/assets/images/logo.svg';
 import { BuiltInProviderType } from 'next-auth/providers/index';
-import NavSignIn from './NavSignIn';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 
