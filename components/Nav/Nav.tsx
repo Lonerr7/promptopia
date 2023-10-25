@@ -5,7 +5,6 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import {
   signIn,
-  signOut,
   useSession,
   getProviders,
   LiteralUnion,
@@ -14,6 +13,8 @@ import {
 import logo from '@/public/assets/images/logo.svg';
 import { BuiltInProviderType } from 'next-auth/providers/index';
 import NavSignIn from './NavSignIn';
+import DesktopNav from './DesktopNav';
+import MobileNav from './MobileNav';
 
 const Nav = () => {
   const isUserLoggedId = true;
@@ -49,83 +50,14 @@ const Nav = () => {
         <p className="logo_text">Promptopia</p>
       </Link>
 
-      {/* Desktop Nav */}
-      <div className="sm:flex hidden">
-        {isUserLoggedId ? (
-          <div className="flex gap-3 md:gap-5">
-            <Link className="black_btn" href="/create-prompt">
-              Create Post
-            </Link>
-            <button className="outline_btn" type="button">
-              Sign Out
-            </button>
-            <Link href="/profile">
-              <Image
-                className="rounded-full"
-                src={logo}
-                alt="profile"
-                width={37}
-                height={37}
-              />
-            </Link>
-          </div>
-        ) : (
-          <NavSignIn providers={providers} />
-        )}
-      </div>
+      <DesktopNav isUserLoggedId={isUserLoggedId} providers={providers} />
 
-      {/* Mobile Navigation */}
-      <div className="sm:hidden flex relative">
-        {isUserLoggedId ? (
-          <div className="flex">
-            <Image
-              className="rounded-full"
-              src={logo}
-              alt="profile"
-              width={37}
-              height={37}
-              onClick={() => {
-                setToggleDropdown((prev) => !prev);
-              }}
-            />
-
-            {toggleDropdown && (
-              <div className="dropdown">
-                <Link
-                  className="dropdown_link"
-                  href="/profile"
-                  onClick={() => {
-                    setToggleDropdown(false);
-                  }}
-                >
-                  My Profile
-                </Link>
-                <Link
-                  className="dropdown_link"
-                  href="/create-prompt"
-                  onClick={() => {
-                    setToggleDropdown(false);
-                  }}
-                >
-                  Create Prompt
-                </Link>
-                <button
-                  className="mt-5 w-full black_btn"
-                  type="button"
-                  onClick={() => {
-                    setToggleDropdown(false);
-                    signOut();
-                  }}
-                >
-                  Sign Out
-                </button>
-              </div>
-            )}
-          </div>
-        ) : (
-          <NavSignIn providers={providers} />
-        )}
-      </div>
+      <MobileNav
+        isUserLoggedId={isUserLoggedId}
+        toggleDropdown={toggleDropdown}
+        providers={providers}
+        setToggleDropdown={setToggleDropdown}
+      />
     </nav>
   );
 };
