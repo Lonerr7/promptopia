@@ -16,7 +16,7 @@ import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
 
 const Nav = () => {
-  const isUserLoggedId = true;
+  const { data: session } = useSession();
 
   const [providers, setProviders] = useState<Record<
     LiteralUnion<BuiltInProviderType, string>,
@@ -33,7 +33,7 @@ const Nav = () => {
       setProviders(response);
     };
 
-    isUserLoggedId || setAuthProviders(); //! Запрашиваем провайдеры только когда мы не вошли на страницу
+    session?.user || setAuthProviders(); //! Запрашиваем провайдеры только когда мы не вошли на страницу
   }, []);
 
   return (
@@ -49,10 +49,10 @@ const Nav = () => {
         <p className="logo_text">Promptopia</p>
       </Link>
 
-      <DesktopNav isUserLoggedId={isUserLoggedId} providers={providers} />
+      <DesktopNav user={session?.user} providers={providers} />
 
       <MobileNav
-        isUserLoggedId={isUserLoggedId}
+        user={session?.user}
         toggleDropdown={toggleDropdown}
         providers={providers}
         setToggleDropdown={setToggleDropdown}

@@ -3,21 +3,22 @@ import Link from 'next/link';
 import NavSignIn from './NavSignIn';
 import { BuiltInProviderType } from 'next-auth/providers/index';
 import { LiteralUnion, ClientSafeProvider } from 'next-auth/react';
+import { SessionUser } from '@/types/authTypes';
 
 import logo from '@/public/assets/images/logo.svg';
 
 interface Props {
-  isUserLoggedId: boolean;
+  user: SessionUser;
   providers: Record<
     LiteralUnion<BuiltInProviderType, string>,
     ClientSafeProvider
   > | null;
 }
 
-const DesktopNav: React.FC<Props> = ({ isUserLoggedId, providers }) => {
+const DesktopNav: React.FC<Props> = ({ user, providers }) => {
   return (
     <div className="sm:flex hidden">
-      {isUserLoggedId ? (
+      {user ? (
         <div className="flex gap-3 md:gap-5">
           <Link className="black_btn" href="/create-prompt">
             Create Post
@@ -28,7 +29,7 @@ const DesktopNav: React.FC<Props> = ({ isUserLoggedId, providers }) => {
           <Link href="/profile">
             <Image
               className="rounded-full"
-              src={logo}
+              src={user?.image ? user.image : logo}
               alt="profile"
               width={37}
               height={37}

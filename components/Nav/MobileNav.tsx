@@ -6,9 +6,10 @@ import { BuiltInProviderType } from 'next-auth/providers/index';
 import Link from 'next/link';
 
 import logo from '@/public/assets/images/logo.svg';
+import { SessionUser } from '@/types/authTypes';
 
 interface Props {
-  isUserLoggedId: boolean;
+  user: SessionUser;
   toggleDropdown: boolean;
   providers: Record<
     LiteralUnion<BuiltInProviderType, string>,
@@ -18,18 +19,18 @@ interface Props {
 }
 
 const MobileNav: FC<Props> = ({
-  isUserLoggedId,
+  user,
   toggleDropdown,
   providers,
   setToggleDropdown,
 }) => {
   return (
     <div className="sm:hidden flex relative">
-      {isUserLoggedId ? (
+      {user ? (
         <div className="flex">
           <Image
             className="rounded-full"
-            src={logo}
+            src={user?.image ? user.image : logo}
             alt="profile"
             width={37}
             height={37}

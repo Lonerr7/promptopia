@@ -3,10 +3,6 @@ import GoogleProvider from 'next-auth/providers/google';
 
 import { connectToDB } from '@/utils/connectToDB';
 import User from '@/models/User';
-import { JWT } from 'next-auth/jwt';
-import { AdapterUser } from 'next-auth/adapters';
-
-// Остановился на 1:24:32
 
 console.log({
   clientId: process.env.GOOGLE_CLIENT_ID!,
@@ -21,15 +17,7 @@ const handlder = NextAuth({
     }),
   ],
   callbacks: {
-    async session({
-      session,
-      token,
-      user,
-    }: {
-      session: any;
-      token: JWT;
-      user: AdapterUser;
-    }) {
+    async session({ session }: { session: any }) {
       const sessionUser = await User.findOne({
         email: session.user?.email,
       });
