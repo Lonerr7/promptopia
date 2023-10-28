@@ -4,6 +4,7 @@ import Form from '@/components/Form';
 import { useCreatePostStore } from '@/store/createPromptStore';
 import { useSession } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 const CreatePrompt = () => {
   const { post, isSubmitting, setPost, createPost } = useCreatePostStore(
@@ -21,15 +22,22 @@ const CreatePrompt = () => {
     e.preventDefault();
     const response = await createPost(sessionData?.user.id);
 
-    if (!response?.ok) {
+    if (response?.ok) {
       router.push('/');
     }
+
+    setPost({
+      prompt: '',
+      tag: '',
+    });
   };
 
-  // Preventing an access to this page if we are not signed in
-  if (!sessionData?.user) {
-    router.push('/');
-  }
+  useEffect(() => {
+    // Preventing an access to this page if we are not signed in
+    if (!sessionData?.user) {
+      router.push('/');
+    }
+  }, []);
 
   return (
     <Form

@@ -13,8 +13,8 @@ export const useCreatePostStore = create<CreatePostState>()(
       set((state) => {
         return {
           post: {
-            prompt: prompt ? prompt : state.post.prompt,
-            tag: tag ? tag : state.post.tag,
+            prompt: prompt !== undefined ? prompt : state.post.prompt,
+            tag: tag !== undefined ? tag : state.post.tag,
           },
         };
       }),
@@ -23,7 +23,7 @@ export const useCreatePostStore = create<CreatePostState>()(
         set({ isSubmitting: true });
         const currentPost = get().post;
 
-        const response = await fetch('/api/post/new', {
+        const response = await fetch('/api/prompt/new', {
           method: 'POST',
           body: JSON.stringify({
             ...currentPost,
