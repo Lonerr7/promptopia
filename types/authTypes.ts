@@ -5,3 +5,4 @@ export type SessionUser =
       image?: string | null | undefined;
     }
   | undefined;
+
