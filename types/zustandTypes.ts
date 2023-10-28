@@ -27,5 +27,5 @@ export interface CreatePostState {
   post: Post;
   isSubmitting: boolean;
   setPost: ({ prompt, tag }: PostInput) => void;
-  createPost: () => void; // !
+  createPost: (userId: string) => Promise<Response | undefined>;
 }

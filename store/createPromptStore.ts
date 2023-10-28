@@ -1,9 +1,9 @@
-import { CreatePostState, Post } from '@/types/zustandTypes';
+import { CreatePostState } from '@/types/zustandTypes';
 import { create } from 'zustand';
 import { devtools } from 'zustand/middleware';
 
 export const useCreatePostStore = create<CreatePostState>()(
-  devtools((set) => ({
+  devtools((set, get) => ({
     post: {
       prompt: '',
       tag: '',
@@ -18,6 +18,25 @@ export const useCreatePostStore = create<CreatePostState>()(
           },
         };
       }),
-    createPost: async () => {},
+    createPost: async (userId: string) => {
+      try {
+        set({ isSubmitting: true });
+        const currentPost = get().post;
+
+        const response = await fetch('/api/post/new', {
+          method: 'POST',
+          body: JSON.stringify({
+            ...currentPost,
+            userId,
+          }),
+        });
+
+        return response;
+      } catch (error) {
+        console.log(error); //!
+      } finally {
+        set({ isSubmitting: false });
+      }
+    },
   }))
 );
