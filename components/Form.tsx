@@ -1,14 +1,21 @@
-import { Prompt } from '@/types/zustandTypes';
+import { Post, PostInput } from '@/types/zustandTypes';
 import Link from 'next/link';
 
 interface Props {
   type: 'Create';
-  post: Prompt | null;
+  post: Post;
   isSubmitting: boolean;
+  setPost: ({}: PostInput) => void;
   handleSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
 }
 
-const Form: React.FC<Props> = ({ type, post, isSubmitting, handleSubmit }) => {
+const Form: React.FC<Props> = ({
+  type,
+  post,
+  isSubmitting,
+  setPost,
+  handleSubmit,
+}) => {
   return (
     <section className="w-full max-w-full flex-start flex-col">
       <h1 className="head_text text-left blue_gradient">{type} Post</h1>
@@ -30,8 +37,12 @@ const Form: React.FC<Props> = ({ type, post, isSubmitting, handleSubmit }) => {
           className="form_textarea mb-5"
           name="prompt"
           id="prompt"
-          value={post?.prompt}
-          onChange={(e) => {}} //!
+          value={post.prompt}
+          onChange={(e) => {
+            setPost({
+              prompt: e.currentTarget.value,
+            });
+          }}
           required
           placeholder="Write your prompt here..."
         />
@@ -48,8 +59,12 @@ const Form: React.FC<Props> = ({ type, post, isSubmitting, handleSubmit }) => {
           className="form_input mb-5"
           name="tag"
           id="tag"
-          value={post?.tag}
-          onChange={(e) => {}} //!
+          value={post.tag}
+          onChange={(e) => {
+            setPost({
+              tag: e.currentTarget.value,
+            });
+          }}
           required
           placeholder="#tag"
         />

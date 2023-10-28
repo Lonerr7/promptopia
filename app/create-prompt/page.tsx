@@ -1,29 +1,31 @@
 'use client';
 
 import Form from '@/components/Form';
-import { useCreatePromptStore } from '@/store/createPromptStore';
+import { useCreatePostStore } from '@/store/createPromptStore';
 
 const CreatePrompt = () => {
-  const { prompt, isSubmitting, createPrompt } = useCreatePromptStore(
+  const { post, isSubmitting, setPost, createPost } = useCreatePostStore(
     (state) => ({
-      prompt: state.prompt,
-      createPrompt: state.createPrompt,
+      post: state.post,
+      createPost: state.createPost,
+      setPost: state.setPost,
       isSubmitting: state.isSubmitting,
     })
   );
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {};
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+  };
 
   return (
     <Form
       type="Create"
-      post={prompt}
+      post={post}
       isSubmitting={isSubmitting}
       handleSubmit={handleSubmit}
+      setPost={setPost}
     />
   );
 };
-
-// Остановился на 1:50:17
 
 export default CreatePrompt;

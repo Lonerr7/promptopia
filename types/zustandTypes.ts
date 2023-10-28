@@ -13,13 +13,19 @@ export interface AuthState {
 
 // === CreatePromptStore ===
 
-export interface Prompt {
+export interface Post {
   prompt: string;
   tag: string;
 }
 
-export interface CreatePromptState {
-  prompt: Prompt | null;
+export interface PostInput {
+  prompt?: string;
+  tag?: string;
+}
+
+export interface CreatePostState {
+  post: Post;
   isSubmitting: boolean;
-  createPrompt: () => void; // !
+  setPost: ({ prompt, tag }: PostInput) => void;
+  createPost: () => void; // !
 }
