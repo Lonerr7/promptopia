@@ -22,7 +22,6 @@ const Feed: React.FC = async () => {
   return (
     <section className="feed">
       <Search />
-      FEED
       <PromptCardList data={posts} />
     </section>
   );
