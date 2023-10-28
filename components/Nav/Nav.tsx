@@ -4,36 +4,27 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import {
-  signIn,
   useSession,
   getProviders,
   LiteralUnion,
   ClientSafeProvider,
 } from 'next-auth/react';
 import logo from '@/public/assets/images/logo.svg';
-import { BuiltInProviderType } from 'next-auth/providers/index';
 import DesktopNav from './DesktopNav';
 import MobileNav from './MobileNav';
+import { useAuthStore } from '@/store/authStore';
 
-const Nav = () => {
+const Nav: React.FC = () => {
   const { data: session } = useSession();
+  const { providers, setAuthProviders } = useAuthStore((state) => ({
+    providers: state.providers,
+    setAuthProviders: state.setAuthProviders,
+  }));
 
-  const [providers, setProviders] = useState<Record<
-    LiteralUnion<BuiltInProviderType, string>,
-    ClientSafeProvider
-  > | null>(null);
   const [toggleDropdown, setToggleDropdown] = useState(false);
 
   useEffect(() => {
-    const setAuthProviders = async () => {
-      const response = await getProviders();
-
-      console.log(response);
-
-      setProviders(response);
-    };
-
-    session?.user || setAuthProviders(); //! Запрашиваем провайдеры только когда мы не вошли на страницу
+    session?.user || setAuthProviders(); //! Запрашиваем провайдеры только когда мы не аутентифицированы на странице
   }, []);
 
   return (

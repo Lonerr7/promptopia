@@ -6,6 +6,7 @@ import { LiteralUnion, ClientSafeProvider } from 'next-auth/react';
 import { SessionUser } from '@/types/authTypes';
 
 import logo from '@/public/assets/images/logo.svg';
+import AuthenticatedNav from './AuthenticatedNav';
 
 interface Props {
   user: SessionUser;
@@ -20,12 +21,7 @@ const DesktopNav: React.FC<Props> = ({ user, providers }) => {
     <div className="sm:flex hidden">
       {user ? (
         <div className="flex gap-3 md:gap-5">
-          <Link className="black_btn" href="/create-prompt">
-            Create Post
-          </Link>
-          <button className="outline_btn" type="button">
-            Sign Out
-          </button>
+          <AuthenticatedNav />
           <Link href="/profile">
             <Image
               className="rounded-full"

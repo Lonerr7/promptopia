@@ -1,3 +1,5 @@
+'use client';
+
 import { BuiltInProviderType } from 'next-auth/providers/index';
 import { signIn, LiteralUnion, ClientSafeProvider } from 'next-auth/react';
 
@@ -17,7 +19,7 @@ const NavSignIn: React.FC<Props> = ({ providers }) => {
             className="black_btn"
             key={provider.name}
             type="button"
-            onClick={() => signIn(provider.id)} //! возможно сюда еще можно передать provider.name?
+            onClick={() => signIn(provider.id)}
           >
             Sign In
           </button>

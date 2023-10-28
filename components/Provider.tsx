@@ -4,11 +4,10 @@ import { SessionProvider } from 'next-auth/react';
 
 interface Props {
   children: React.ReactNode;
-  session: any; //!
 }
 
-const Provider: React.FC<Props> = ({ children, session }) => {
-  return <SessionProvider session={session}>{children}</SessionProvider>;
+const Provider: React.FC<Props> = ({ children }) => {
+  return <SessionProvider>{children}</SessionProvider>;
 };
 
 export default Provider;
