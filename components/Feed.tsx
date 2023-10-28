@@ -1,9 +1,31 @@
-import React from 'react'
+import { PostsResponse } from '@/types/apiTypes';
+import Search from './Search';
+import PromptCardList from './PromptCardList';
 
-const Feed = () => {
+const getPosts = async () => {
+  const response = await fetch('http://localhost:3000/api/prompt', {
+    next: {
+      revalidate: 60,
+    },
+  });
+
+  if (!response.ok) {
+    throw new Error('Failed to fetch data');
+  }
+
+  return response.json();
+};
+
+const Feed: React.FC = async () => {
+  const posts: PostsResponse = await getPosts();
+
   return (
-    <div>Feed</div>
-  )
-}
+    <section className="feed">
+      <Search />
+      FEED
+      <PromptCardList data={posts} />
+    </section>
+  );
+};
 
-export default Feed
+export default Feed;

@@ -1,9 +1,12 @@
-import React from 'react'
+import { SinglePostResponse } from '@/types/apiTypes';
+import { FC } from 'react';
 
-const Promptcard = () => {
-  return (
-    <div>Promptcard</div>
-  )
+interface Props {
+  post: SinglePostResponse;
 }
 
-export default Promptcard
+const Promptcard: FC<Props> = ({ post }) => {
+  return <div>Promptcard</div>;
+};
+
+export default Promptcard;
