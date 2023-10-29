@@ -9,7 +9,13 @@ const ProfilePage: FC = async () => {
   const myPosts = await getUserPosts(session?.user.id, true);
 
   const handleEdit = () => {};
-  const handleDelete = async () => {};
+  const handleDelete = async (postId: string) => {
+    'use server';
+
+    console.log('deleting...');
+
+    console.log(postId);
+  };
 
   return (
     <Profile

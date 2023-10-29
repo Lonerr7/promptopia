@@ -2,7 +2,7 @@ import { Post } from './zustandTypes';
 import { User } from 'next-auth';
 
 export interface UserResponse {
-  id: string;
+  _id: string;
   username: string;
   image: string;
   email: string;

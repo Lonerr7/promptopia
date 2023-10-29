@@ -7,7 +7,7 @@ interface Props {
   desc: string;
   data: SinglePostResponse[];
   handleEdit: () => void;
-  handleDelete: () => Promise<void>;
+  handleDelete: (postId: string) => Promise<void>;
 }
 
 const Profile: FC<Props> = ({ name, desc, data, handleDelete, handleEdit }) => {
@@ -17,7 +17,7 @@ const Profile: FC<Props> = ({ name, desc, data, handleDelete, handleEdit }) => {
         <span className="blue_gradient">{name} Profile</span>
       </h1>
       <p className="desc text-left">{desc}</p>
-      <PromptCardList data={data} />
+      <PromptCardList data={data} handleDelete={handleDelete} />
     </section>
   );
 };
