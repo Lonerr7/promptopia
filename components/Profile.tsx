@@ -1,9 +1,25 @@
-import React from 'react'
+import { FC } from 'react';
+import PromptCardList from './PromptCardList';
+import { SinglePostResponse } from '@/types/apiTypes';
 
-const Profile = () => {
-  return (
-    <div>Profile</div>
-  )
+interface Props {
+  name: string;
+  desc: string;
+  data: SinglePostResponse[];
+  handleEdit: () => void;
+  handleDelete: () => Promise<void>;
 }
 
-export default Profile
+const Profile: FC<Props> = ({ name, desc, data, handleDelete, handleEdit }) => {
+  return (
+    <section className="w-full">
+      <h1 className="head_text text-left">
+        <span className="blue_gradient">{name} Profile</span>
+      </h1>
+      <p className="desc text-left">{desc}</p>
+      <PromptCardList data={data} />
+    </section>
+  );
+};
+
+export default Profile;

@@ -11,6 +11,8 @@ interface Props {
 }
 
 const Promptcard: FC<Props> = ({ post }) => {
+  // Тут возможно не хватает еще следующих функций: handleTagClick, handleEdit, handleDelete
+
   const [copied, setCopied] = useState('');
 
   const handleCopy = () => {

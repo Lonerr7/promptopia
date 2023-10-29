@@ -9,7 +9,7 @@ export interface UserResponse {
 }
 
 export interface SinglePostResponse extends Post {
-  id: string;
+  _id: string;
   creator: UserResponse;
 }
 

@@ -7,10 +7,12 @@ interface Props {
 }
 
 const PromptCardList: FC<Props> = ({ data }) => {
+  console.log(data);
+
   return (
     <div className="mt-16 prompt_layout">
       {data.map((post) => (
-        <Promptcard key={post.id} post={post} />
+        <Promptcard key={post._id} post={post} />
       ))}
     </div>
   );

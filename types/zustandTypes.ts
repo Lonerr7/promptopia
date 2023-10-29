@@ -1,5 +1,6 @@
 import { LiteralUnion, ClientSafeProvider } from 'next-auth/react';
 import { BuiltInProviderType } from 'next-auth/providers/index';
+import { PostsResponse } from './apiTypes';
 
 // === AuthStore ===
 
@@ -28,4 +29,11 @@ export interface CreatePostState {
   isSubmitting: boolean;
   setPost: ({ prompt, tag }: PostInput) => void;
   createPost: (userId: string) => Promise<Response | undefined>;
+}
+
+// === PostsStore ===
+export interface PostsStoreState {
+  posts: PostsResponse;
+  isFetching: boolean;
+  setPosts: (userId: string) => Promise<void>;
 }
